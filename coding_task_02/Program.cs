@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace coding_task_02
 {
     /// <summary>
-    /// 
+    /// An interval represents a number space between two numbers. [2,4] ~ 2,3,4
     /// </summary>
     public class Intervall
     {
@@ -63,6 +63,7 @@ namespace coding_task_02
                 Console.Write(intervall.ToString());
             }
             Console.WriteLine("\n\n");
+
             Merge(intervalls);
 
             Console.WriteLine("Output: ");
@@ -75,14 +76,16 @@ namespace coding_task_02
 
         static public List<Intervall> Merge(List<Intervall> intervalls)
         {
-            // Sort intervall (b) ascending
+            // Sort interval (b) ascending
             intervalls.Sort((ivx, ivy) => ivx.b.CompareTo(ivy.b));
 
             for (int x = intervalls.Count-1; x > 0; x--)
             {
                 if (intervalls[x].InRange(intervalls[x - 1]))
                 {
+                    // Replace the interval with the merged overlapping interval 
                     intervalls[x - 1] = intervalls[x].Merge(intervalls[x - 1]);
+                    // Remove the merged interval
                     intervalls.RemoveAt(x);
                 }
             }
