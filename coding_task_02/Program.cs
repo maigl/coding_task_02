@@ -16,12 +16,23 @@ namespace coding_task_02
     }
     internal class Program
     {
-        static void Main(string[] args)
+        void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            List<Intervall> intervalls = new List<Intervall>();
+            intervalls.AddRange(new Intervall[] {
+                new Intervall(25,30),
+                new Intervall(2,19),
+                new Intervall(14,23),
+                new Intervall(4,8)
+            });
 
-
+            this.Merge(intervalls);
         }
 
+        public List<Intervall> Merge(List<Intervall> intervalls)
+        {
+
+            return null;
+        }
     }
 }
