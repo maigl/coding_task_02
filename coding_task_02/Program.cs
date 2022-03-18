@@ -4,17 +4,35 @@ using System.Collections.Generic;
 namespace coding_task_02
 {
     /// <summary>
-    /// An interval represents a number space between two numbers. [2,4] ~ 2,3,4
+    /// An interval represents a positiv number space between two numbers. [2,4] ~ 2,3,4
     /// </summary>
     public class Intervall
     {
-        public Int16 a;
-        public Int16 b;
-        
-        public Intervall(Int16 a, Int16 b)
+        private UInt16 a;
+        private UInt16 b;
+
+        public UInt16 A
         {
-            this.a = a;
-            this.b = b;
+            get { return a; }
+            set { a = value; }
+        }
+        public UInt16 B
+        {
+            get { return b; }
+            set
+            {
+                if (value > this.A)
+                {
+                    b = value;
+                }
+                else throw new ArgumentOutOfRangeException("B", "The end of the interval must be greater than the beginning");
+            }
+        }
+
+        public Intervall(UInt16 a, UInt16 b)
+        {
+            this.A = a;
+            this.B = b;
         }
 
         /// <summary>
@@ -24,24 +42,24 @@ namespace coding_task_02
         /// <returns></returns>
         public bool InRange(Intervall intervall)
         {
-            if (this.a <= intervall.b && this.b >= intervall.a) return true;
+            if (this.A <= intervall.B && this.B >= intervall.A) return true;
             return false;
         }
         /// <summary>
-        /// Merge passing Intervall
+        /// Merge passing intervall
         /// </summary>
         /// <param name="intervall"></param>
         /// <returns></returns>
         public Intervall Merge(Intervall intervall)
         {
-            if (this.a < intervall.a) intervall.a = this.a;
-            if (this.b > intervall.b) intervall.b = this.b;
+            if (this.A < intervall.A) intervall.A = this.A;
+            if (this.B > intervall.B) intervall.B = this.B;
 
             return intervall;
         }
         public override string ToString()
         {
-            return "[" + a.ToString() + "," + b.ToString() + "]";
+            return "[" + A.ToString() + "," + B.ToString() + "]";
         }
 
     }
@@ -54,7 +72,7 @@ namespace coding_task_02
                 new Intervall(25,30),
                 new Intervall(2,19),
                 new Intervall(14,23),
-                new Intervall(4,8),
+                new Intervall(4,8)
             });
 
             Console.WriteLine("Input: ");
@@ -77,9 +95,9 @@ namespace coding_task_02
         static public List<Intervall> Merge(List<Intervall> intervalls)
         {
             // Sort interval (b) ascending
-            intervalls.Sort((ivx, ivy) => ivx.b.CompareTo(ivy.b));
+            intervalls.Sort((ivx, ivy) => ivx.B.CompareTo(ivy.B));
 
-            for (int x = intervalls.Count-1; x > 0; x--)
+            for (int x = intervalls.Count - 1; x > 0; x--)
             {
                 if (intervalls[x].InRange(intervalls[x - 1]))
                 {
