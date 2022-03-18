@@ -75,6 +75,11 @@ namespace coding_task_02
                 new Intervall(4,8)
             });
 
+            /*for(int i = 0; i < 99995; i++)
+            {
+                intervalls.Add(GenerateRandomIntervall());
+            }*/
+
             Console.WriteLine("Input: ");
             foreach (Intervall intervall in intervalls)
             {
@@ -108,6 +113,13 @@ namespace coding_task_02
                 }
             }
             return intervalls;
+        }
+
+        // Memory diagnostics function
+        static public Intervall GenerateRandomIntervall()
+        {
+            Random rnd = new Random();
+            return new Intervall((UInt16) rnd.Next(0, 100), (UInt16) rnd.Next(101, 200));
         }
     }
 }
